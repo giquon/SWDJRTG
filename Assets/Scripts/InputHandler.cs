@@ -16,7 +16,7 @@ public class InputHandler : MonoBehaviour
     public float yMoveLimit;           
 
     public float yJumpBoundPercentage       = 20.0f;
-    private bool isInJumpZone = false;
+    public bool isInJumpZone                = false;
     public Vector2 yJumpLimits;
     public float yJumpSize;
 
@@ -29,14 +29,13 @@ public class InputHandler : MonoBehaviour
 
     private void Update()
     {
-        input.jump = Input.GetKeyDown(KeyCode.Space);
-
         CheckMovementBounds(new Vector2(Screen.width, Screen.height));
 
-        input.jump      = CheckJumpBounds();
+        //input.jump = Input.GetKeyDown(KeyCode.Space);
+        input.jump = CheckJumpBounds();
     }
 
-    private Vector2 CheckInputDevice()
+    private Vector2 CheckInputDevice(Vector2 oldPosition)
     {
         if (Application.platform == RuntimePlatform.Android)
         {
@@ -51,7 +50,7 @@ public class InputHandler : MonoBehaviour
             }
         }
 
-        return Vector2.one;
+        return oldPosition;
     }
 
     /// <summary>
@@ -65,7 +64,7 @@ public class InputHandler : MonoBehaviour
 
         yMoveLimit = bounds.y * yRegionBoundPercentage;
 
-        input.position = CheckInputDevice();
+        input.position = CheckInputDevice(positionOld);
 
         //check if the user input is outsize a set bound
         if (input.position.y > yMoveLimit)
@@ -73,6 +72,12 @@ public class InputHandler : MonoBehaviour
             input.position.y = yMoveLimit;
             input.position.x = positionOld.x;
         }
+
+        if (input.position.x > bounds.x)
+            input.position.x = bounds.x;
+
+        if (input.position.x < 0)
+            input.position.x = 0;
     }
 
     /// <summary>
