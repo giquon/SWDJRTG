@@ -29,7 +29,7 @@ public class Platform : MonoBehaviour
 		Vector3 moveDirection = (new Vector3(0, transform.position.y, transform.position.z) - new Vector3(0, _currentDestination.y, _currentDestination .z)).normalized;
 		transform.position -= moveDirection * _gameManager.platformSpeed * Time.deltaTime;
 
-		if (transform.position.z <= 0)
+		if (transform.position.z <= -10)
 			Destroy(this.gameObject);
 
 		if (transform.position.z <= _currentDestination.z)
@@ -49,7 +49,7 @@ public class Platform : MonoBehaviour
 		_currentDestination		= _nodesList[0].transform.position;
 		_xCoord					= aXCoord;
 		transform.position		= new Vector3(_xCoord, _currentDestination.y, _currentDestination.z);
-		transform.localScale	= new Vector3(aWidth, .2f, 1);
+		transform.localScale	= new Vector3(aWidth, .2f, 5);
 		_nodeIndex				= 0;
 	}
 }

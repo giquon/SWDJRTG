@@ -21,6 +21,8 @@ public class PlatformSpawnHandler : MonoBehaviour
 
 	private float					previousPlatformX;
 
+    public Vector2                  randomSizeBounds;
+
 	private void Start()
 	{
 		_gameManager	= GameManager.instance;
@@ -40,7 +42,7 @@ public class PlatformSpawnHandler : MonoBehaviour
 
 		do
 		{
-			SpawnPlatform(newXPosition, Random.Range(0.3f, 1));
+			SpawnPlatform(newXPosition, Random.Range(randomSizeBounds.x, randomSizeBounds.y));
 			newXPosition		= Random.Range(minX, maxX);
 			float randomDis		= Random.Range(minJumpDis, maxJumpDis);
 			float xDistance		= Mathf.Abs(newXPosition - previousPlatformX);
