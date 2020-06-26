@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(PlatformSpawHandler))]
+[CustomEditor(typeof(PlatformCurveHandler))]
 [CanEditMultipleObjects]
-public class PlatformSpawnHandlerEditor : Editor
+public class PlatformCurveHandlerEditor : Editor
 {
 	////////// MACROS //////////
 	private readonly float		MIN_FLAT_OFFSET	= 0;
 	private readonly float		MAX_FLAT_OFFSET	= 100;
 
-	private	PlatformSpawHandler	_target;
+	private	PlatformCurveHandler	_target;
 
 	private	SerializedProperty	_startObject;
 	private	SerializedProperty	_endObject;
@@ -21,7 +21,7 @@ public class PlatformSpawnHandlerEditor : Editor
 
 	private void OnEnable()
 	{
-		_target			= (PlatformSpawHandler)target;
+		_target			= (PlatformCurveHandler)target;
 		_startObject	= serializedObject.FindProperty("startObject");
 		_endObject		= serializedObject.FindProperty("endObject");
 		_resolution		= serializedObject.FindProperty("resolution");

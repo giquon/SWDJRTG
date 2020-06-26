@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformSpawHandler : MonoBehaviour
+public class PlatformCurveHandler : MonoBehaviour
 {
 	public	GameObject			startObject;
 	public	GameObject			endObject;
@@ -46,8 +46,8 @@ public class PlatformSpawHandler : MonoBehaviour
 
 	public void ClearNodesList()
 	{
-		if (nodesList == null ||
-			nodesList.Count == 0)
+		if (nodesList		== null ||
+			nodesList.Count	== 0)
 			return;
 
 		foreach(GameObject node in nodesList)
