@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public struct Inputs
 {
@@ -67,11 +68,11 @@ public class InputHandler : MonoBehaviour
         input.position = CheckInputDevice(positionOld);
 
         //check if the user input is outsize a set bound
-        if (input.position.y > yMoveLimit)
-        {
-            input.position.y = yMoveLimit;
-            input.position.x = positionOld.x;
-        }
+        //if (input.position.y > yMoveLimit)
+        //{
+        //    input.position.y = yMoveLimit;
+        //    input.position.x = positionOld.x;
+        //}
 
         if (input.position.x > bounds.x)
             input.position.x = bounds.x;
@@ -91,16 +92,18 @@ public class InputHandler : MonoBehaviour
         yJumpLimits = new Vector2(yMoveLimit, yMoveLimit + yJumpSize);
 
         //check if the input is within bounds
-        if (input.position.y > yJumpLimits.x && input.position.y < yMoveLimit && !isInJumpZone)
+        if (input.position.y > yJumpLimits.x && input.position.y < yJumpLimits.y && !isInJumpZone)
         {
-            return true;
+            isInJumpZone = true;
             //Debug.Log("jumping");
+            return true;
         }
 
         if (input.position.y < yJumpLimits.x)
         {
-            return true;
+            isInJumpZone = false;
             //Debug.Log("not jumping");
+            return false;
         }
 
         return false;
