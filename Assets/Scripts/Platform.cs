@@ -43,12 +43,13 @@ public class Platform : MonoBehaviour
 		transform.position = new Vector3(_xCoord, transform.position.y, transform.position.z);
 	}
 
-	public void Initialize(List<GameObject> aNodesList, float aXCoord)
+	public void Initialize(List<GameObject> aNodesList, float aXCoord, float aWidth)
 	{
-		_nodesList			= aNodesList;
-		_currentDestination	= _nodesList[0].transform.position;
-		_xCoord				= aXCoord;
-		transform.position	= new Vector3(_xCoord, _currentDestination.y, _currentDestination.z);
-		_nodeIndex			= 0;
+		_nodesList				= aNodesList;
+		_currentDestination		= _nodesList[0].transform.position;
+		_xCoord					= aXCoord;
+		transform.position		= new Vector3(_xCoord, _currentDestination.y, _currentDestination.z);
+		transform.localScale	= new Vector3(aWidth, .2f, 1);
+		_nodeIndex				= 0;
 	}
 }

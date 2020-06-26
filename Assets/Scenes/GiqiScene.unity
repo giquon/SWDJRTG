@@ -227,8 +227,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b85b203920d21e47965cbb4fcfc9276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minJumpDis: 0
-  maxJumpDis: 0
+  minJumpDis: 4
+  maxJumpDis: 7
+  defaultYDistanceOffset: 1
 --- !u!1 &552827688
 GameObject:
   m_ObjectHideFlags: 0

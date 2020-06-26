@@ -40,7 +40,7 @@ public class PlatformSpawnHandler : MonoBehaviour
 
 		do
 		{
-			SpawnPlatform(newXPosition);
+			SpawnPlatform(newXPosition, Random.Range(0.3f, 1));
 			newXPosition		= Random.Range(minX, maxX);
 			float randomDis		= Random.Range(minJumpDis, maxJumpDis);
 			float xDistance		= Mathf.Abs(newXPosition - previousPlatformX);
@@ -52,10 +52,10 @@ public class PlatformSpawnHandler : MonoBehaviour
 		} while (true);
 	}
 
-	public void SpawnPlatform(float platformXPosition)
+	public void SpawnPlatform(float platformXPosition, float platformWidth)
 	{
 		GameObject newPlatform = (GameObject)Instantiate(Resources.Load(PLATFORM_RESOURCE));
-		newPlatform.GetComponent<Platform>().Initialize(curve, platformXPosition);
+		newPlatform.GetComponent<Platform>().Initialize(curve, platformXPosition, platformWidth);
 		previousPlatformX		= platformXPosition;
 	}
 }
