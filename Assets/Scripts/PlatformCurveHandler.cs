@@ -41,7 +41,7 @@ public class PlatformCurveHandler : MonoBehaviour
 		GameObject newNode			= (GameObject)Instantiate(Resources.Load("CurveNode"));
 		newNode.transform.position	= aNodePosition;
 		newNode.transform.parent	= this.transform;
-		nodesList.Add(newNode);
+		nodesList.Insert(0, newNode);
 	}
 
 	public void ClearNodesList()
