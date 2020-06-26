@@ -13,11 +13,12 @@ public class InputHandler : MonoBehaviour
     public Inputs input;
 
     public float yRegionBoundPercentage     = 30.0f;
-    public float yTouchLimit;           
+    public float yMoveLimit;           
 
     public float yJumpBoundPercentage       = 20.0f;
     private bool isInJumpZone = false;
-    private Vector2 yJumpLimits;
+    public Vector2 yJumpLimits;
+    public float yJumpSize;
 
     private void Awake()
     {
@@ -30,9 +31,9 @@ public class InputHandler : MonoBehaviour
     {
         input.jump = Input.GetKeyDown(KeyCode.Space);
 
-        CheckMoveMentBounds(new Vector2(Screen.width, Screen.height));
-        CheckJumpBounds();
-        input.position = CheckInputDevice();
+        CheckMovementBounds(new Vector2(Screen.width, Screen.height));
+
+        input.jump      = CheckJumpBounds();
     }
 
     private Vector2 CheckInputDevice()
@@ -57,17 +58,19 @@ public class InputHandler : MonoBehaviour
     /// Checks if the user is within the bounds for movement
     /// </summary>
     /// <param name="bounds">widht and height (in that order) of the screen</param>
-    private void CheckMoveMentBounds(Vector2 bounds)
+    private void CheckMovementBounds(Vector2 bounds)
     {
         //get the old position
         Vector2 positionOld = input.position;
 
-        yTouchLimit = bounds.y * yRegionBoundPercentage;
+        yMoveLimit = bounds.y * yRegionBoundPercentage;
+
+        input.position = CheckInputDevice();
 
         //check if the user input is outsize a set bound
-        if (input.position.y > yTouchLimit)
+        if (input.position.y > yMoveLimit)
         {
-            input.position.y = yTouchLimit;
+            input.position.y = yMoveLimit;
             input.position.x = positionOld.x;
         }
     }
@@ -77,22 +80,25 @@ public class InputHandler : MonoBehaviour
     /// if it is then a flag is set 
     /// when leaving the bound the flag is reset
     /// </summary>
-    private void CheckJumpBounds()
+    private bool CheckJumpBounds()
     {
-        yJumpLimits = new Vector2(yTouchLimit * yJumpBoundPercentage, yTouchLimit);
+        yJumpSize = yMoveLimit * yJumpBoundPercentage;
+        yJumpLimits = new Vector2(yMoveLimit, yMoveLimit + yJumpSize);
 
         //check if the input is within bounds
-        if (input.position.y > yJumpLimits.x && input.position.y < yTouchLimit && !isInJumpZone)
+        if (input.position.y > yJumpLimits.x && input.position.y < yMoveLimit && !isInJumpZone)
         {
-            input.jump = true;
+            return true;
             //Debug.Log("jumping");
         }
 
         if (input.position.y < yJumpLimits.x)
         {
-            input.jump = false;
+            return true;
             //Debug.Log("not jumping");
         }
+
+        return false;
     }
 }
 
