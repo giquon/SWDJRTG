@@ -1470,6 +1470,7 @@ GameObject:
   - component: {fileID: 1966177210}
   - component: {fileID: 1966177209}
   - component: {fileID: 1966177213}
+  - component: {fileID: 1966177214}
   m_Layer: 0
   m_Name: StartPlatform
   m_TagString: Platform
@@ -1545,7 +1546,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1966177208}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.83, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 8, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1567,6 +1568,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1966177214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966177208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d41af8760f65543b50a587c68f1ae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2047999618
 GameObject:
   m_ObjectHideFlags: 0
@@ -1611,7 +1624,7 @@ GameObject:
   - component: {fileID: 2055911898}
   m_Layer: 0
   m_Name: Car
-  m_TagString: Platform
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1674,12 +1687,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 1521446549}
+  carTranform: {fileID: 30402407}
   movespeed: 5
   jumpForceMin: 50
   jumpForceMax: 175
   cameraLimitRotationMin: -7
   cameraLimitRotationMax: 7
   carSmoothRotatiionFactor: 10
+  deathForceY: 20
+  deathForceMinX: -2
+  deathForceMaxX: 2
+  deathTorgueMin: -100
+  deathTorgueMax: 100
+  dieTime: 5
+  deathZoneY: -20
 --- !u!1001 &4160408485183440723
 PrefabInstance:
   m_ObjectHideFlags: 0

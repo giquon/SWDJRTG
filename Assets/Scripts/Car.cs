@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Car : MonoBehaviour
 {
     private GameManager     gameManager;
     public InputHandler     inputHandler;
     private Rigidbody       carRigidbody;
+    public Transform       carTranform;
 
     public float            movespeed;
     public float            jumpForceMin;
@@ -21,6 +23,16 @@ public class Car : MonoBehaviour
     private GrounCheck      groundCheck;
 
     private float           xMin, xMax;
+
+    public float            deathForceY;
+    public float            deathForceMinX, deathForceMaxX;
+    public float            deathTorgueMin, deathTorgueMax;
+    public float            dieTime;
+    public float            deathZoneY;
+    private bool            hasDied;
+    private float           time;
+    private float           timer;
+
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +50,29 @@ public class Car : MonoBehaviour
     {
         updateHorizontalPosition();
         doJumpCalculations(inputHandler.input.position, inputHandler.oldPosition, inputHandler.input.jump, inputHandler.yJumpLimits.y);
+
+        if (transform.position.y < deathZoneY && !hasDied)
+        {
+            hasDied = true;
+
+            time = Time.deltaTime;
+
+            carRigidbody.constraints = RigidbodyConstraints.None;
+
+            float randomForce = Random.Range(deathForceMinX, deathForceMaxX);
+            carRigidbody.AddForce(new Vector3(randomForce, deathForceY, randomForce), ForceMode.Impulse);
+
+            float randomTorgue = Random.Range(deathTorgueMin, deathTorgueMax);
+            carRigidbody.AddTorque(new Vector3(randomTorgue, randomTorgue, randomTorgue));
+        }
+
+        if (hasDied)
+        {
+            timer += Time.deltaTime;
+
+            if (timer > time + dieTime || transform.position.y < deathZoneY-1)
+                SceneManager.LoadScene("Deathscreen", LoadSceneMode.Single);
+        }
     }
 
     private void updateHorizontalPosition()
@@ -74,5 +109,24 @@ public class Car : MonoBehaviour
         {
             carRigidbody.AddForce(new Vector3(0, jumpForce, 0));
         }
+
+        Debug.Log(carRigidbody.velocity.y);
+
+        if (!hasDied)
+            if (carRigidbody.velocity.y < -2)
+            {
+                Quaternion targetRotation = Quaternion.Euler(new Vector3(-20, carTranform.rotation.y, carTranform.rotation.z));
+                carTranform.rotation = Quaternion.RotateTowards(carTranform.rotation, targetRotation, Time.deltaTime * 100);
+            }
+            else if (carRigidbody.velocity.y > 2)
+            {
+                Quaternion targetRotation = Quaternion.Euler(new Vector3(20, carTranform.rotation.y, carTranform.rotation.z));
+                carTranform.rotation = Quaternion.RotateTowards(carTranform.rotation, targetRotation, Time.deltaTime * 100);
+            }
+            else
+            {
+                Quaternion targetRotation = Quaternion.Euler(new Vector3(0, carTranform.rotation.y, carTranform.rotation.z));
+                carTranform.rotation = Quaternion.RotateTowards(carTranform.rotation, targetRotation, Time.deltaTime * 100);
+            }
     }
 }
