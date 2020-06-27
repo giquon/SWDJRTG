@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class GameManager : MonoBehaviour
 	public				float		destroyZ		= -10;
 
     public				Vector3		platformSize; 
+
+	public				Text		scoreUI;
 
 	private void Awake()
 	{
@@ -47,6 +50,7 @@ public class GameManager : MonoBehaviour
 	public void AddScore(int aScore)
 	{
 		playerScore += aScore;
+		scoreUI.text = playerScore.ToString();
 	}
 
 	public void AddScore()
