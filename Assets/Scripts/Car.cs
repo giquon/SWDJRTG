@@ -8,7 +8,8 @@ public class Car : MonoBehaviour
     private GameManager     gameManager;
     public InputHandler     inputHandler;
     private Rigidbody       carRigidbody;
-    public Transform       carTranform;
+    public Transform        carTranform;
+    private BoxCollider     collider;
 
     public float            movespeed;
     public float            jumpForceMin;
@@ -40,6 +41,7 @@ public class Car : MonoBehaviour
         gameManager     = GameManager.instance;
         carRigidbody    = GetComponent<Rigidbody>();
         groundCheck     = GetComponentInChildren<GrounCheck>();
+        collider        = GetComponent<BoxCollider>();
 
         xMin            = gameManager.minXPosition;
         xMax            = gameManager.maxXPosition;
@@ -72,6 +74,11 @@ public class Car : MonoBehaviour
 
             if (timer > time + dieTime || transform.position.y < deathZoneY-1)
                 SceneManager.LoadScene("Deathscreen", LoadSceneMode.Single);
+
+            if (carRigidbody.velocity.y > 5)
+                collider.isTrigger = true;
+            else
+                collider.isTrigger = false;
         }
     }
 
