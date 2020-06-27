@@ -16,6 +16,8 @@ public class Platform : MonoBehaviour
 
 	private float				_xCoord;
 
+	private bool				_hasLanded			= false;
+
 	private void Start()
 	{
 		_gameManager	= GameManager.instance;
@@ -53,5 +55,13 @@ public class Platform : MonoBehaviour
 		transform.position		= new Vector3(_xCoord, _currentDestination.y, _currentDestination.z);
         transform.localScale    = aSize;
         _nodeIndex				= 0;
+	}
+
+	public void PlayerLanded()
+	{
+		if (_hasLanded)
+			return;
+
+		_gameManager.AddScore();
 	}
 }

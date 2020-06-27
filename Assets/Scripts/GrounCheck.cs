@@ -17,6 +17,11 @@ public class GrounCheck : MonoBehaviour
     {
         if (other.transform.tag == "Platform")
         {
+			Platform platform = other.GetComponent<Platform>();
+
+			if (platform != null)
+				platform.PlayerLanded();
+
             isGrounded = true; ;
         }
     }
