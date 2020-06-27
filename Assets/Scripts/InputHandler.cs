@@ -11,7 +11,7 @@ public struct Inputs
 
 public class InputHandler : MonoBehaviour
 {
-    public Inputs   input;
+    public Inputs       input;
 
     public float        yRegionBoundPercentage     = 30.0f;
     public float        yJumpBoundPercentage       = 20.0f;
@@ -104,6 +104,24 @@ public class InputHandler : MonoBehaviour
         }
 
         return false;
+    }
+
+
+    //copied from arduino :)
+    public float mapValue(float in_max, float update_this, float out_min, float out_max)
+    {
+        float finalPos;
+        float factor = (out_max - out_min) / (in_max);
+
+        finalPos = update_this * factor + out_min;
+
+        if (finalPos < out_min)
+            finalPos = out_min;
+
+        if (finalPos > out_max)
+            finalPos = out_max;
+
+        return finalPos;
     }
 }
 

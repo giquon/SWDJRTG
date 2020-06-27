@@ -38,27 +38,10 @@ public class Car : MonoBehaviour
 
     private void updateHorizontalPosition()
     {
-        float newPositionX = mapValue(Screen.width, inputHandler.input.position.x, xMin, xMax);
+        float newPositionX = inputHandler.mapValue(Screen.width, inputHandler.input.position.x, xMin, xMax);
         Vector3 target = new Vector3(newPositionX, transform.position.y, transform.position.z);
         Vector3 updatedPosition = Vector3.MoveTowards(transform.position, target, movespeed * Time.deltaTime);
         transform.position = updatedPosition;
-    }
-
-    //copied from arduino :)
-    private float mapValue(float in_max, float update_this, float out_min, float out_max)
-    {
-        float finalPos;
-        float factor = (out_max - out_min) / (in_max);
-
-        finalPos = update_this * factor + out_min;
-
-        if (finalPos < out_min)
-            finalPos = out_min;
-
-        if (finalPos > out_max)
-            finalPos = out_max;
-
-        return finalPos;
     }
 
     private void doJumpCalculations(Vector3 aPosition, Vector3 aOldPosition, bool aJump, float xEndPosition)
@@ -76,7 +59,7 @@ public class Car : MonoBehaviour
 
         if (aJump)
         {
-            jumpForce = mapValue(xEndPosition, xEndPosition - yStartJumpforceCalculation, jumpForceMin, jumpForceMax);
+            jumpForce = inputHandler.mapValue(xEndPosition, xEndPosition - yStartJumpforceCalculation, jumpForceMin, jumpForceMax);
         }
         
         if (groundCheck.isGrounded && aJump)
