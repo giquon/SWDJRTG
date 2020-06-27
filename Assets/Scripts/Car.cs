@@ -82,7 +82,7 @@ public class Car : MonoBehaviour
 
 
             //get the score
-            PlayerPrefs.GetInt("tempscore", gameManager.playerScore);
+            PlayerPrefs.SetInt("tempscore", gameManager.playerScore);
             if (gameManager.playerScore > PlayerPrefs.GetInt("Highscore"))
             {
                 PlayerPrefs.SetInt("Highscore", gameManager.playerScore);
