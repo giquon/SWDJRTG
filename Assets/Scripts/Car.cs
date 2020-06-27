@@ -9,8 +9,11 @@ public class Car : MonoBehaviour
     private Rigidbody       carRigidbody;
 
     public float            movespeed;
-    public float            jumpForce;
-    private bool            jumpFlag = false;
+    public float            jumpForceMin;
+    public float            jumpForceMax;
+    private float           jumpForce;
+    private bool            startedJumpForceCalculations = false;
+    private float           yStartJumpforceCalculation;
     private GrounCheck      groundCheck;
 
     private float           xMin, xMax;
@@ -29,33 +32,25 @@ public class Car : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float newPositionX = mapValue(inputHandler.input.position.x, xMin, xMax);
+        updateHorizontalPosition();
+        doJumpCalculations(inputHandler.input.position, inputHandler.oldPosition, inputHandler.input.jump, inputHandler.yJumpLimits.y);
+    }
+
+    private void updateHorizontalPosition()
+    {
+        float newPositionX = mapValue(Screen.width, inputHandler.input.position.x, xMin, xMax);
         Vector3 target = new Vector3(newPositionX, transform.position.y, transform.position.z);
         Vector3 updatedPosition = Vector3.MoveTowards(transform.position, target, movespeed * Time.deltaTime);
         transform.position = updatedPosition;
-
-        Debug.Log(target);
-
-        if (groundCheck.isGrounded && inputHandler.input.jump)
-        {
-            jumpFlag = false;
-
-            carRigidbody.AddForce(new Vector3(0, jumpForce, 0));
-        }
-
-        if (!inputHandler.isInJumpZone)
-        {
-            jumpFlag = true;
-        }
     }
 
     //copied from arduino :)
-    private float mapValue(float in_max, float out_min, float out_max)
+    private float mapValue(float in_max, float update_this, float out_min, float out_max)
     {
         float finalPos;
-        float factor = (out_max - out_min) / (Screen.width);
+        float factor = (out_max - out_min) / (in_max);
 
-        finalPos = inputHandler.input.position.x * factor + out_min;
+        finalPos = update_this * factor + out_min;
 
         if (finalPos < out_min)
             finalPos = out_min;
@@ -64,5 +59,29 @@ public class Car : MonoBehaviour
             finalPos = out_max;
 
         return finalPos;
+    }
+
+    private void doJumpCalculations(Vector3 aPosition, Vector3 aOldPosition, bool aJump, float xEndPosition)
+    {
+        if (aPosition.y > aOldPosition.y && !startedJumpForceCalculations)
+        {
+            startedJumpForceCalculations = true;
+
+            yStartJumpforceCalculation = aPosition.y;
+        }
+        else if (aPosition.y < aOldPosition.y)
+        {
+            startedJumpForceCalculations = false;
+        }
+
+        if (aJump)
+        {
+            jumpForce = mapValue(xEndPosition, xEndPosition - yStartJumpforceCalculation, jumpForceMin, jumpForceMax);
+        }
+        
+        if (groundCheck.isGrounded && aJump)
+        {
+            carRigidbody.AddForce(new Vector3(0, jumpForce, 0));
+        }
     }
 }

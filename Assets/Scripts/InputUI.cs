@@ -27,10 +27,10 @@ public class InputUI : MonoBehaviour
     {
         //render the move image and scale it to size
         moveImageRegion.rectTransform.sizeDelta = new Vector2(Screen.width, inputHandler.yMoveLimit);
-        moveRegion.transform.position = new Vector3(Screen.width / 2, inputHandler.yMoveLimit / 2, 0);
+        moveRegion.transform.position           = new Vector3(Screen.width / 2, inputHandler.yMoveLimit / 2, 0);
 
         //render the jump image and scale it to size
         jumpImageRegion.rectTransform.sizeDelta = new Vector2(Screen.width, inputHandler.yJumpSize);
-        jumpRegion.transform.position = new Vector3(Screen.width / 2, inputHandler.yMoveLimit + inputHandler.yJumpSize / 2, 0);
+        jumpRegion.transform.position           = new Vector3(Screen.width / 2, inputHandler.yMoveLimit + inputHandler.yJumpSize / 2, 0);
     }
 }

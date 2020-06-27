@@ -9,10 +9,10 @@ public class PlatformSpawnHandler : MonoBehaviour
 	private GameManager				_gameManager;
 	private	PlatformCurveHandler	_curveHandler;
 
-	public	float					minJumpDis;
-	public	float					maxJumpDis;
+    public  float                   yMinJumpDis;
+    public  float                   yMaxJumpDis;
 
-	public	float					defaultYDistanceOffset	= 1.0f;
+    public	float					defaultYDistanceOffset	= 1.0f;
 
 	private float					minX;
 	private float					maxX;
@@ -41,20 +41,15 @@ public class PlatformSpawnHandler : MonoBehaviour
 
 	public IEnumerator SpawnCycle()
 	{
-		float newXPosition = Random.Range(minX, maxX);
+		float newXPosition = 0;
 
 		do
 		{
 			SpawnPlatform(newXPosition, platformSize);
 
 			newXPosition		= Random.Range(minX, maxX);
-			float randomDis		= Random.Range(minJumpDis, maxJumpDis);
-
-			float xDistance		= Mathf.Abs(newXPosition - previousPlatformX);
-			xDistance			= Mathf.Clamp(xDistance, minJumpDis, randomDis);
-			float yDistance		= Mathf.Sqrt((randomDis * randomDis) - (xDistance * xDistance));
-
-			float waitTime		= yDistance / _gameManager.platformSpeed;
+            float randomDisY    = Random.Range(yMinJumpDis, yMaxJumpDis);
+			float waitTime		= randomDisY / _gameManager.platformSpeed;
 			
 			yield return new WaitForSeconds(waitTime);
 		} while (true);
