@@ -248,8 +248,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingWidth: 7
-  leftSpawnPoint: {fileID: 861214113}
-  rightSpawnPoint: {fileID: 293156959}
+  leftSpawnPoint: {fileID: 861214114}
+  rightSpawnPoint: {fileID: 293156960}
   buildingList:
   - {fileID: 4953173876887047113, guid: ba52a870a884e034781a961ed25306cb, type: 3}
   - {fileID: 4984558050544390996, guid: 0457d56d700f62847ac55b41eaf28316, type: 3}
