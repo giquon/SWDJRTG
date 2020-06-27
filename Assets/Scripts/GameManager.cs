@@ -6,9 +6,12 @@ public class GameManager : MonoBehaviour
 {
     public static	GameManager instance;
 
-	public	float				platformSpeed	= 7.0f;
-	public	float				minXPosition	= -3.0f;
-	public	float				maxXPosition	= 3.0f;
+	public float				platformSpeed	= 7.0f;
+
+	public float				minXPosition	= -3.0f;
+	public float				maxXPosition	= 3.0f;
+
+    public Vector3              platformSize; 
 
 	private void Awake()
 	{

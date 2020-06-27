@@ -21,7 +21,7 @@ public class PlatformSpawnHandler : MonoBehaviour
 
 	private float					previousPlatformX;
 
-    public Vector2                  randomSizeBounds;
+    private Vector3                 platformSize; 
 
 	private void Start()
 	{
@@ -33,7 +33,10 @@ public class PlatformSpawnHandler : MonoBehaviour
 		minX			= _gameManager.minXPosition;
 		maxX			= _gameManager.maxXPosition;
 
-		StartCoroutine("SpawnCycle");
+        platformSize    = _gameManager.platformSize;
+
+
+        StartCoroutine("SpawnCycle");
 	}
 
 	public IEnumerator SpawnCycle()
@@ -42,22 +45,25 @@ public class PlatformSpawnHandler : MonoBehaviour
 
 		do
 		{
-			SpawnPlatform(newXPosition, Random.Range(randomSizeBounds.x, randomSizeBounds.y));
+			SpawnPlatform(newXPosition, platformSize);
+
 			newXPosition		= Random.Range(minX, maxX);
 			float randomDis		= Random.Range(minJumpDis, maxJumpDis);
+
 			float xDistance		= Mathf.Abs(newXPosition - previousPlatformX);
 			xDistance			= Mathf.Clamp(xDistance, minJumpDis, randomDis);
 			float yDistance		= Mathf.Sqrt((randomDis * randomDis) - (xDistance * xDistance));
+
 			float waitTime		= yDistance / _gameManager.platformSpeed;
 			
 			yield return new WaitForSeconds(waitTime);
 		} while (true);
 	}
 
-	public void SpawnPlatform(float platformXPosition, float platformWidth)
+	public void SpawnPlatform(float platformXPosition, Vector3 aSize)
 	{
 		GameObject newPlatform = (GameObject)Instantiate(Resources.Load(PLATFORM_RESOURCE));
-		newPlatform.GetComponent<Platform>().Initialize(curve, platformXPosition, platformWidth);
+		newPlatform.GetComponent<Platform>().Initialize(curve, platformXPosition, aSize);
 		previousPlatformX		= platformXPosition;
 	}
 }

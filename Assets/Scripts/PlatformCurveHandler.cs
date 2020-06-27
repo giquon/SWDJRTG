@@ -9,7 +9,7 @@ public class PlatformCurveHandler : MonoBehaviour
 	////////// Curve Settings //////////
 	public	int					resolution;
 	public	float				flatlineOffset;
-	public	float				curveExponent	= 2;
+	public	float				curveExponent	= 2.0f;
 
 	public	List<GameObject>	nodesList;
 

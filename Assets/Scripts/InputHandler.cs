@@ -30,8 +30,8 @@ public class InputHandler : MonoBehaviour
 
     private void Update()
     {
-        input.position  = CheckMovementBounds(new Vector2(Screen.width, Screen.height));
-        input.jump      = CheckJumpBounds();
+        input.position  = CheckMovementBounds   (new Vector2(Screen.width, Screen.height));
+        input.jump      = CheckJumpBounds       (new Vector2(Screen.width, Screen.height));
     }
 
     private Vector2 CheckInputDevice(Vector2 oldPosition)
@@ -56,22 +56,21 @@ public class InputHandler : MonoBehaviour
     /// Checks if the user is within the bounds for movement
     /// </summary>
     /// <param name="bounds">widht and height (in that order) of the screen</param>
-    private Vector2 CheckMovementBounds(Vector2 bounds)
+    private Vector2 CheckMovementBounds(Vector2 aBounds)
     {
-        //get the old position
         Vector2 returnPosition;
         Vector2 positionOld;
 
         positionOld     = input.position;
         returnPosition  = CheckInputDevice(positionOld);
         
-        if (returnPosition.x > bounds.x)
-            returnPosition.x = bounds.x;
+        if (returnPosition.x > aBounds.x)
+            returnPosition.x = aBounds.x;
 
         if (returnPosition.x < 0)
             returnPosition.x = 0;
 
-        yMoveLimit = bounds.y * yRegionBoundPercentage;
+        yMoveLimit = aBounds.y * yRegionBoundPercentage;
 
         return returnPosition;
     }
@@ -81,13 +80,15 @@ public class InputHandler : MonoBehaviour
     /// if it is then a flag is set 
     /// when leaving the bound the flag is reset
     /// </summary>
-    private bool CheckJumpBounds()
+    private bool CheckJumpBounds(Vector2 aBounds)
     {
-        yJumpSize = yMoveLimit * yJumpBoundPercentage;
+        yJumpSize = aBounds.x * yJumpBoundPercentage;
         yJumpLimits = new Vector2(yMoveLimit, yMoveLimit + yJumpSize);
 
         //check if the input is within bounds
-        if (input.position.y > yJumpLimits.x && input.position.y < yJumpLimits.y && !isInJumpZone)
+        if (input.position.y > yJumpLimits.x 
+        &&  input.position.y < yJumpLimits.y
+        && !isInJumpZone)
         {            
             return isInJumpZone = true; 
         }
