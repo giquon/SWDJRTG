@@ -7,6 +7,7 @@ public class Platform : MonoBehaviour
 	private GameManager			_gameManager;
 
 	private	float				_moveSpeed;
+	private float				_destroyZ;
 	
 	private List<GameObject>	_nodesList;
 
@@ -19,6 +20,7 @@ public class Platform : MonoBehaviour
 	{
 		_gameManager	= GameManager.instance;
 		_moveSpeed		= _gameManager.platformSpeed;
+		_destroyZ		= _gameManager.destroyZ;
 	}
 
 	private void FixedUpdate()
@@ -29,7 +31,7 @@ public class Platform : MonoBehaviour
 		Vector3 moveDirection = (new Vector3(0, transform.position.y, transform.position.z) - new Vector3(0, _currentDestination.y, _currentDestination .z)).normalized;
 		transform.position -= moveDirection * _gameManager.platformSpeed * Time.deltaTime;
 
-		if (transform.position.z <= -10)
+		if (transform.position.z <= _destroyZ)
 			Destroy(this.gameObject);
 
 		if (transform.position.z <= _currentDestination.z)
@@ -37,7 +39,7 @@ public class Platform : MonoBehaviour
 			if (_nodeIndex < _nodesList.Count - 1)
 				_currentDestination = _nodesList[++_nodeIndex].transform.position;
 			else
-				_currentDestination = new Vector3(0, 0, -10);
+				_currentDestination = new Vector3(0, 0, _destroyZ - 1);
 		}
 
 		transform.position = new Vector3(_xCoord, transform.position.y, transform.position.z);

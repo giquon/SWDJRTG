@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 	public float				minXPosition	= -3.0f;
 	public float				maxXPosition	= 3.0f;
 
+	public float				destroyZ		= -10;
+
     public Vector3              platformSize; 
 
 	private void Awake()
