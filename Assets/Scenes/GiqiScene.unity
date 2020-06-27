@@ -361,8 +361,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b85b203920d21e47965cbb4fcfc9276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minJumpDis: 16
-  maxJumpDis: 22
+  yMinJumpDis: 3
+  yMaxJumpDis: 12
   defaultYDistanceOffset: 1
 --- !u!1 &552827688
 GameObject:
@@ -953,6 +953,7 @@ GameObject:
   - component: {fileID: 1822413496}
   - component: {fileID: 1822413495}
   - component: {fileID: 1822413494}
+  - component: {fileID: 1822413497}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1018,13 +1019,32 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1822413493}
-  m_LocalRotation: {x: 0.15348232, y: -0, z: -0, w: 0.98815143}
-  m_LocalPosition: {x: 0, y: 9.75, z: -25.53}
+  m_LocalRotation: {x: 0.15622012, y: 0.051691554, z: -0.00818714, w: 0.98633474}
+  m_LocalPosition: {x: -6, y: 9.75, z: -25.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 17.658, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 18, y: 6, z: 0}
+--- !u!114 &1822413497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822413493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5f63d421f0041438ee1bfc0ffb084a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputHandler: {fileID: 1521446549}
+  CameraSpeedSmoothingPosition: 5
+  CameraSpeedSmoothingRotation: 5
+  CameraLimitPositionX: -3
+  CameraLimitPositionY: 3
+  CameraLimitRotationX: -3
+  CameraLimitRotationY: 3
 --- !u!1 &1966177208
 GameObject:
   m_ObjectHideFlags: 0
@@ -1290,7 +1310,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 1521446549}
-  movespeed: 10
+  movespeed: 5
+  jumpForceMin: 0
   jumpForceMax: 200
 --- !u!1001 &4160408485183440723
 PrefabInstance:
@@ -1299,6 +1320,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 883097099, guid: 25c9ad388f1b4a24da60aa99e0027f8e, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4160408483932285381, guid: 25c9ad388f1b4a24da60aa99e0027f8e,
         type: 3}
       propertyPath: m_LocalPosition.x
