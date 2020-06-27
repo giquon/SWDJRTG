@@ -8,16 +8,33 @@ public class BuildingHandler : MonoBehaviour
 
 	public	float			buildingWidth;
 
-	public	GameObject		leftSpawnPoint;
-	public	GameObject		rightSpawnPoint;
+	public	Transform		leftSpawnPoint;
+	public	Transform		rightSpawnPoint;
 
 	public	GameObject[]	buildingList;
 
 	private void Start()
 	{
 		_gameManager = GameManager.instance;
-
+		InitializeFirstBuildings();
 		StartCoroutine("SpawnCycle");
+	}
+
+	private void InitializeFirstBuildings()
+	{
+		int amountOfBuildings = (int)(leftSpawnPoint.position.z - _gameManager.destroyZ);
+
+		for (int i = 0; i < amountOfBuildings; i++)
+		{
+			Vector3 leftPosition = leftSpawnPoint.position;
+			leftPosition.z -= i * buildingWidth;
+
+			Vector3 rightPosition = rightSpawnPoint.position;
+			rightPosition.z -= i * buildingWidth;
+
+			SpawnBuilding(true, leftPosition);
+			SpawnBuilding(false, rightPosition);
+		}
 	}
 
 	public IEnumerator SpawnCycle()
@@ -33,9 +50,14 @@ public class BuildingHandler : MonoBehaviour
 
 	private void SpawnBuilding(bool isLeft)
 	{
+		SpawnBuilding(isLeft, (isLeft) ? leftSpawnPoint.position : rightSpawnPoint.position);
+	}
+	
+	private void SpawnBuilding(bool isLeft, Vector3 aPosition)
+	{
 		GameObject newBuilding				= (GameObject)Instantiate(buildingList[Random.Range(0, buildingList.Length)]);
 		newBuilding.transform.parent		= transform;
-		newBuilding.transform.position		= (isLeft) ? leftSpawnPoint.transform.position : rightSpawnPoint.transform.position;
+		newBuilding.transform.position		= aPosition;
 		
 		if (!isLeft)
 			newBuilding.transform.eulerAngles	= new Vector3(0, 180, 0);

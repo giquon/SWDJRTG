@@ -16,7 +16,7 @@ public class Building : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		Vector3 moveDirection = (new Vector3(0, 0, transform.position.z) - new Vector3(0, 0, -10)).normalized;
+		Vector3 moveDirection = (new Vector3(0, 0, transform.position.z) - new Vector3(0, 0, _destroyZ - 10)).normalized;
 		transform.position -= moveDirection * _gameManager.platformSpeed * Time.deltaTime;
 
 		if (transform.position.z <= _destroyZ)
