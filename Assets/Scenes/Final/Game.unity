@@ -1073,8 +1073,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platformSpeed: 10
+  playerScore: 0
   minXPosition: -3
   maxXPosition: 3
+  speedIncrement: 0.1
+  maxSpeed: 75
   destroyZ: -20
   platformSize: {x: 5, y: 0.5, z: 5}
 --- !u!4 &1774534184

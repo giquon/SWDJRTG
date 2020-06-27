@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static	GameManager instance;
+	private readonly	int			DEFAULT_SCORE	= 10;
 
-	public float				platformSpeed	= 7.0f;
+    public static		GameManager	instance;
 
-	public float				minXPosition	= -3.0f;
-	public float				maxXPosition	= 3.0f;
+	public				float		platformSpeed	= 7.0f;
 
-	public float				destroyZ		= -10;
+	public				int			playerScore;
 
-    public Vector3              platformSize; 
+	public				float		minXPosition	= -3.0f;
+	public				float		maxXPosition	= 3.0f;
+
+	public				float		speedIncrement	= 0.1f;
+	public				float		maxSpeed		= 20.0f;
+
+	public				float		destroyZ		= -10;
+
+    public				Vector3		platformSize; 
 
 	private void Awake()
 	{
@@ -26,4 +33,24 @@ public class GameManager : MonoBehaviour
 		instance = this;
 	}
 
+	private void Update()
+	{
+		if (platformSpeed < maxSpeed)
+			platformSpeed += speedIncrement * Time.deltaTime;
+	}
+
+	private void Start()
+	{
+		playerScore = 0;
+	}
+
+	public void AddScore(int aScore)
+	{
+		playerScore += aScore;
+	}
+
+	public void AddScore()
+	{
+		AddScore(DEFAULT_SCORE);
+	}
 }
