@@ -79,6 +79,15 @@ public class Car : MonoBehaviour
                 collider.isTrigger = true;
             else
                 collider.isTrigger = false;
+
+
+            //get the score
+            PlayerPrefs.GetInt("tempscore", gameManager.playerScore);
+            if (gameManager.playerScore > PlayerPrefs.GetInt("Highscore"))
+            {
+                PlayerPrefs.SetInt("Highscore", gameManager.playerScore);
+                PlayerPrefs.Save();
+            }
         }
     }
 
