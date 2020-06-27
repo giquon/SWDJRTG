@@ -17,8 +17,8 @@ public class Platform : MonoBehaviour
 
 	private void Start()
 	{
-		_gameManager = GameManager.instance;
-		_moveSpeed = _gameManager.platformSpeed;
+		_gameManager	= GameManager.instance;
+		_moveSpeed		= _gameManager.platformSpeed;
 	}
 
 	private void FixedUpdate()
