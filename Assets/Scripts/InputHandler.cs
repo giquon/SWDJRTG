@@ -5,21 +5,21 @@ using UnityEngine.Events;
 
 public struct Inputs
 {
-    public Vector2 position;
-    public bool jump;
+    public Vector2  position;
+    public bool     jump;
 }
 
 public class InputHandler : MonoBehaviour
 {
-    public Inputs input;
+    public Inputs   input;
 
-    public float yRegionBoundPercentage     = 30.0f;
-    public float yMoveLimit;           
+    public float    yRegionBoundPercentage     = 30.0f;
+    public float    yMoveLimit;           
 
-    public float yJumpBoundPercentage       = 20.0f;
-    public bool isInJumpZone                = false;
-    public Vector2 yJumpLimits;
-    public float yJumpSize;
+    public float    yJumpBoundPercentage       = 20.0f;
+    public Vector2  yJumpLimits;
+    public bool     isInJumpZone                = false;
+    public float    yJumpSize;
 
     private void Awake()
     {
@@ -30,10 +30,8 @@ public class InputHandler : MonoBehaviour
 
     private void Update()
     {
-        CheckMovementBounds(new Vector2(Screen.width, Screen.height));
-
-        //input.jump = Input.GetKeyDown(KeyCode.Space);
-        input.jump = CheckJumpBounds();
+        input.position  = CheckMovementBounds(new Vector2(Screen.width, Screen.height));
+        input.jump      = CheckJumpBounds();
     }
 
     private Vector2 CheckInputDevice(Vector2 oldPosition)
@@ -58,27 +56,24 @@ public class InputHandler : MonoBehaviour
     /// Checks if the user is within the bounds for movement
     /// </summary>
     /// <param name="bounds">widht and height (in that order) of the screen</param>
-    private void CheckMovementBounds(Vector2 bounds)
+    private Vector2 CheckMovementBounds(Vector2 bounds)
     {
         //get the old position
-        Vector2 positionOld = input.position;
+        Vector2 returnPosition;
+        Vector2 positionOld;
+
+        positionOld     = input.position;
+        returnPosition  = CheckInputDevice(positionOld);
+        
+        if (returnPosition.x > bounds.x)
+            returnPosition.x = bounds.x;
+
+        if (returnPosition.x < 0)
+            returnPosition.x = 0;
 
         yMoveLimit = bounds.y * yRegionBoundPercentage;
 
-        input.position = CheckInputDevice(positionOld);
-
-        //check if the user input is outsize a set bound
-        //if (input.position.y > yMoveLimit)
-        //{
-        //    input.position.y = yMoveLimit;
-        //    input.position.x = positionOld.x;
-        //}
-
-        if (input.position.x > bounds.x)
-            input.position.x = bounds.x;
-
-        if (input.position.x < 0)
-            input.position.x = 0;
+        return returnPosition;
     }
 
     /// <summary>
@@ -93,17 +88,13 @@ public class InputHandler : MonoBehaviour
 
         //check if the input is within bounds
         if (input.position.y > yJumpLimits.x && input.position.y < yJumpLimits.y && !isInJumpZone)
-        {
-            isInJumpZone = true;
-            //Debug.Log("jumping");
-            return true;
+        {            
+            return isInJumpZone = true; 
         }
 
         if (input.position.y < yJumpLimits.x)
         {
-            isInJumpZone = false;
-            //Debug.Log("not jumping");
-            return false;
+            return isInJumpZone = false;
         }
 
         return false;
