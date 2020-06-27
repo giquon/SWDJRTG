@@ -11,6 +11,10 @@ public class Car : MonoBehaviour
     public float            movespeed;
     public float            jumpForceMin;
     public float            jumpForceMax;
+
+    public float            cameraLimitRotationMin, cameraLimitRotationMax;
+    public float            carSmoothRotatiionFactor;
+
     private float           jumpForce;
     private bool            startedJumpForceCalculations = false;
     private float           yStartJumpforceCalculation;
@@ -42,6 +46,10 @@ public class Car : MonoBehaviour
         Vector3 target = new Vector3(newPositionX, transform.position.y, transform.position.z);
         Vector3 updatedPosition = Vector3.MoveTowards(transform.position, target, movespeed * Time.deltaTime);
         transform.position = updatedPosition;
+
+        float rotationY = inputHandler.mapValue(Screen.width, inputHandler.input.position.x, cameraLimitRotationMin, cameraLimitRotationMax);
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(transform.rotation.x, -rotationY, transform.rotation.z));
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * carSmoothRotatiionFactor);
     }
 
     private void doJumpCalculations(Vector3 aPosition, Vector3 aOldPosition, bool aJump, float xEndPosition)
