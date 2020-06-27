@@ -8,6 +8,7 @@ public class Car : MonoBehaviour
     private GameManager     gameManager;
     public InputHandler     inputHandler;
     private Rigidbody       carRigidbody;
+    public Transform       carTranform;
 
     public float            movespeed;
     public float            jumpForceMin;
@@ -65,8 +66,6 @@ public class Car : MonoBehaviour
             carRigidbody.AddTorque(new Vector3(randomTorgue, randomTorgue, randomTorgue));
         }
 
-        Debug.Log(time);
-
         if (hasDied)
         {
             timer += Time.deltaTime;
@@ -110,5 +109,24 @@ public class Car : MonoBehaviour
         {
             carRigidbody.AddForce(new Vector3(0, jumpForce, 0));
         }
+
+        Debug.Log(carRigidbody.velocity.y);
+
+        if (!hasDied)
+            if (carRigidbody.velocity.y < -2)
+            {
+                Quaternion targetRotation = Quaternion.Euler(new Vector3(-20, carTranform.rotation.y, carTranform.rotation.z));
+                carTranform.rotation = Quaternion.RotateTowards(carTranform.rotation, targetRotation, Time.deltaTime * 100);
+            }
+            else if (carRigidbody.velocity.y > 2)
+            {
+                Quaternion targetRotation = Quaternion.Euler(new Vector3(20, carTranform.rotation.y, carTranform.rotation.z));
+                carTranform.rotation = Quaternion.RotateTowards(carTranform.rotation, targetRotation, Time.deltaTime * 100);
+            }
+            else
+            {
+                Quaternion targetRotation = Quaternion.Euler(new Vector3(0, carTranform.rotation.y, carTranform.rotation.z));
+                carTranform.rotation = Quaternion.RotateTowards(carTranform.rotation, targetRotation, Time.deltaTime * 100);
+            }
     }
 }

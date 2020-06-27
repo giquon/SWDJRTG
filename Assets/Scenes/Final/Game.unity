@@ -1424,6 +1424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 1521446549}
+  carTranform: {fileID: 30402407}
   movespeed: 5
   jumpForceMin: 50
   jumpForceMax: 175
@@ -1435,7 +1436,7 @@ MonoBehaviour:
   deathForceMaxX: 2
   deathTorgueMin: -100
   deathTorgueMax: 100
-  dieTime: 3
+  dieTime: 5
   deathZoneY: -20
 --- !u!1001 &4160408485183440723
 PrefabInstance:
