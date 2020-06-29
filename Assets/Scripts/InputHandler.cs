@@ -13,22 +13,39 @@ public class InputHandler : MonoBehaviour
 {
     public Inputs       input;
 
-    public float        yRegionBoundPercentage     = 30.0f;
-    public float        yJumpBoundPercentage       = 20.0f;
+    [Header("Movement")]
+    public float        moveLimitPercentage = 30.0f;
+    public float        moveLimitMax;
+    public float        moveLimitMin;
+    public float        moveLimitPosition;
+    public float        moveLimitSize;
 
-    public float        yMoveLimit;
-    public Vector2      yJumpLimits;
-    public bool         isInJumpZone                = false;
-    public float        yJumpSize;
-
+    [Header("Jumping")]
+    public float        jumpLimitPercentage = 30.0f;
+    public float        jumpLimitMax;
+    public float        jumpLimitMin;
+    public float        jumpLimitPosition;
+    public float        jumpLimitSize;
+    public bool         isInJumpZone = false;
 
     public Vector3      oldPosition;
 
     private void Awake()
     {
         //get percentage factor
-        yRegionBoundPercentage  /= 100.0f;
-        yJumpBoundPercentage    /= 100.0f;
+        moveLimitPercentage     /= 100.0f;
+        jumpLimitPercentage     /= 100.0f;
+
+        moveLimitSize   = moveLimitPercentage * Screen.height;
+        moveLimitMax    = moveLimitPosition + moveLimitSize/2;
+        moveLimitMin    = moveLimitPosition - moveLimitSize/2;
+
+        jumpLimitSize       = jumpLimitPercentage * Screen.height;
+        jumpLimitMax        = moveLimitMax + jumpLimitSize;
+        jumpLimitMin        = moveLimitMax;
+        jumpLimitPosition   = moveLimitMax + jumpLimitSize/2;
+
+        moveLimitMax    += jumpLimitSize;
     }
 
     private void Update()
@@ -37,7 +54,7 @@ public class InputHandler : MonoBehaviour
         input.jump      = CheckJumpBounds       (new Vector2(Screen.width, Screen.height));
     }
 
-    private Vector2 CheckInputDevice()
+    private Vector2 GetTouchPosition()
     {
         if (Application.platform == RuntimePlatform.Android)
         {
@@ -61,10 +78,8 @@ public class InputHandler : MonoBehaviour
     /// <param name="bounds">widht and height (in that order) of the screen</param>
     private Vector2 CheckMovementBounds(Vector2 aBounds)
     {
-        Vector2 returnPosition;
-
-        oldPosition = input.position;
-        returnPosition  = CheckInputDevice();
+        oldPosition             = input.position;
+        Vector2 returnPosition  = GetTouchPosition();
         
         if (returnPosition.x > aBounds.x)
             returnPosition.x = aBounds.x;
@@ -72,10 +87,8 @@ public class InputHandler : MonoBehaviour
         if (returnPosition.x < 0)
             returnPosition.x = 0;
 
-        if (returnPosition.y > yJumpLimits.y)
+        if (returnPosition.y > moveLimitMax || returnPosition.y < moveLimitMin)
             returnPosition = oldPosition;
-
-        yMoveLimit      = aBounds.y * yRegionBoundPercentage;
 
         return returnPosition;
     }
@@ -87,18 +100,15 @@ public class InputHandler : MonoBehaviour
     /// </summary>
     private bool CheckJumpBounds(Vector2 aBounds)
     {
-        yJumpSize = aBounds.x * yJumpBoundPercentage;
-        yJumpLimits = new Vector2(yMoveLimit, yMoveLimit + yJumpSize);
-
         //check if the input is within bounds
-        if (input.position.y > yJumpLimits.x 
-        &&  input.position.y < yJumpLimits.y
-        && !isInJumpZone)
+        if (!isInJumpZone
+            && input.position.y < jumpLimitMax 
+            && input.position.y > jumpLimitMin)
         {            
             return isInJumpZone = true; 
         }
 
-        if (input.position.y < yJumpLimits.x)
+        if (input.position.y < jumpLimitMin)
         {
             return isInJumpZone = false;
         }

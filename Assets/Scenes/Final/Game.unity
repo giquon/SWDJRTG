@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.16788375, g: 0.21073635, b: 0.28994125, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1239,8 +1239,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformSpeed: 10
   playerScore: 0
-  minXPosition: -3
-  maxXPosition: 3
+  minXPosition: -4
+  maxXPosition: 4
   speedIncrement: 0.1
   maxSpeed: 75
   destroyZ: -20
@@ -1691,8 +1691,8 @@ MonoBehaviour:
   movespeed: 5
   jumpForceMin: 50
   jumpForceMax: 175
-  cameraLimitRotationMin: -7
-  cameraLimitRotationMax: 7
+  carLimitRotationMin: -6
+  carLimitRotationMax: 6
   carSmoothRotatiionFactor: 10
   deathForceY: 20
   deathForceMinX: -2
@@ -1708,52 +1708,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 406611449, guid: 25c9ad388f1b4a24da60aa99e0027f8e, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 6f28f5c98c1e44d4a99eb9cb57250284,
-        type: 3}
-    - target: {fileID: 406611449, guid: 25c9ad388f1b4a24da60aa99e0027f8e, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 406611449, guid: 25c9ad388f1b4a24da60aa99e0027f8e, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 406611449, guid: 25c9ad388f1b4a24da60aa99e0027f8e, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 406611449, guid: 25c9ad388f1b4a24da60aa99e0027f8e, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 614478410, guid: 25c9ad388f1b4a24da60aa99e0027f8e, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 7d9203362d88f5f418cb6b1827297136,
-        type: 3}
-    - target: {fileID: 614478410, guid: 25c9ad388f1b4a24da60aa99e0027f8e, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 614478410, guid: 25c9ad388f1b4a24da60aa99e0027f8e, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 614478410, guid: 25c9ad388f1b4a24da60aa99e0027f8e, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 614478410, guid: 25c9ad388f1b4a24da60aa99e0027f8e, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 883097099, guid: 25c9ad388f1b4a24da60aa99e0027f8e, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4160408483932285381, guid: 25c9ad388f1b4a24da60aa99e0027f8e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1811,8 +1765,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4160408483932285382, guid: 25c9ad388f1b4a24da60aa99e0027f8e,
         type: 3}
-      propertyPath: yJumpBoundPercentage
-      value: 20
+      propertyPath: jumpLimitPercentage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4160408483932285382, guid: 25c9ad388f1b4a24da60aa99e0027f8e,
+        type: 3}
+      propertyPath: moveLimitPercentage
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4160408483932285383, guid: 25c9ad388f1b4a24da60aa99e0027f8e,
         type: 3}

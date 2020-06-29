@@ -58,13 +58,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0.07093382, a: 0.49803922}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 6f28f5c98c1e44d4a99eb9cb57250284, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -132,13 +132,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.066275835, b: 1, a: 0.49803922}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 7d9203362d88f5f418cb6b1827297136, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -293,12 +293,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c9e8831808c6b4380cdf12365a8394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yRegionBoundPercentage: 20
-  yJumpBoundPercentage: 15
-  yMoveLimit: 0
-  yJumpLimits: {x: 0, y: 0}
+  moveLimitPercentage: 30
+  moveLimitMax: 0
+  moveLimitMin: 0
+  moveLimitPosition: 700
+  moveLimitSize: 0
+  jumpLimitPercentage: 10
+  jumpLimitMax: 0
+  jumpLimitMin: 0
+  jumpLimitPosition: 350
+  jumpLimitSize: 0
   isInJumpZone: 0
-  yJumpSize: 0
   oldPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1521446551
 MonoBehaviour:

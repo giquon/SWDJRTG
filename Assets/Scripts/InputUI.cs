@@ -6,39 +6,34 @@ public class InputUI : MonoBehaviour
 {
     private InputHandler inputHandler;
 
-    public GameObject moveRegion;
-    public GameObject jumpRegion;
+    public GameObject   moveRegion;
+    public GameObject   jumpRegion;
 
-    private Image jumpImageRegion;
-    private Image moveImageRegion;
+    private Vector2     jumpRegionPosition;
+    private Vector2     jumpRegionSize;
+
+    private Vector2     moveRegionPosition;
+    private Vector2     moveRegionSize;
 
     // Use this for initialization
-    void Awake()
+    void Start()
     {
         inputHandler = GetComponent<InputHandler>();
 
-        //get image component
-        moveImageRegion = moveRegion.GetComponent<Image>();
-        jumpImageRegion = jumpRegion.GetComponent<Image>();
+        jumpRegionPosition      = new Vector2(Screen.width / 2, inputHandler.jumpLimitPosition);
+        moveRegionPosition      = new Vector2(Screen.width / 2, inputHandler.moveLimitPosition);
+
+        jumpRegionSize          = new Vector2(Screen.width, inputHandler.jumpLimitSize);
+        moveRegionSize          = new Vector2(Screen.width, inputHandler.moveLimitSize);
 
         //render the move image and scale it to size
-        moveImageRegion.rectTransform.sizeDelta     = new Vector2(Screen.width, inputHandler.yMoveLimit);
-        moveRegion.transform.position               = new Vector3(Screen.width/2, inputHandler.yMoveLimit/2, 0);
-
-        //render the jump image and scale it to size
-        jumpImageRegion.rectTransform.sizeDelta     = new Vector2(Screen.width, inputHandler.yJumpSize);
-        jumpRegion.transform.position               = new Vector3(Screen.width/2, inputHandler.yMoveLimit + inputHandler.yJumpSize/2, 0);
+        changeImageTransform(jumpRegion, jumpRegionSize, jumpRegionPosition);
+        changeImageTransform(moveRegion, moveRegionSize, moveRegionPosition);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void changeImageTransform(GameObject aGameObject, Vector2 aSize, Vector2 aPosition)
     {
-        //render the move image and scale it to size
-        moveImageRegion.rectTransform.sizeDelta     = new Vector2(Screen.width, inputHandler.yMoveLimit);
-        moveRegion.transform.position               = new Vector3(Screen.width / 2, inputHandler.yMoveLimit / 2, 0);
-
-        //render the jump image and scale it to size
-        jumpImageRegion.rectTransform.sizeDelta = new Vector2(Screen.width, inputHandler.yJumpSize);
-        jumpRegion.transform.position           = new Vector3(Screen.width / 2, inputHandler.yMoveLimit + inputHandler.yJumpSize / 2, 0);
+        aGameObject.GetComponent<Image>().rectTransform.sizeDelta   = aSize;
+        aGameObject.transform.position                              = aPosition;
     }
 }
